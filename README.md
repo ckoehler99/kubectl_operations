@@ -1,4 +1,4 @@
-# kubectl_operations
+# kubernets_operations
 
 Project for documentation oprations of a Kubernetes Cluster
 
