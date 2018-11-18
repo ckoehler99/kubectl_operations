@@ -23,7 +23,7 @@ metadata:
   namespace: kube-system
 spec:
   rules:
-  - host: traefik.your-cool-domain-name.co.uk
+  - host: traefik.digitalocean.ck99.io
     http:
       paths:
       - backend:
