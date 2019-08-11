@@ -6,4 +6,4 @@
 install.sh
 
 
-## Grafana git add .
+## Grafana
