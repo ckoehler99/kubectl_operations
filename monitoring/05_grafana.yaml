@@ -1,0 +1,48 @@
+apiVersion: apps/v1beta1
+kind: Deployment
+metadata:
+  name: grafana
+  namespace: kube-monitoring
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        name: grafana
+    spec:
+      containers:
+      - name: grafana
+        image: grafana/grafana
+        ports:
+        - name: web
+          containerPort: 3000
+        volumeMounts:
+        - mountPath: /var/lib/grafana
+          name: grafana-storage
+        env:
+        - name: GF_SERVER_HTTP_PORT
+          value: "3000"
+        - name: GF_SECURITY_ADMIN_PASSWORD
+          value: "password"
+        - name: GF_INSTALL_PLUGINS
+          value: "grafana-kubernetes-app"
+      volumes:
+      - name: grafana-storage
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  labels:
+    name: grafana
+  name: grafana
+  namespace: kube-monitoring
+spec:
+  type: LoadBalancer
+  selector:
+    name: grafana
+  ports:
+  - name: grafana
+    protocol: TCP
+    port: 3000
+    targetPort: web
